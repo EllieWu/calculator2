@@ -104,7 +104,7 @@
 
 
             <CheckBox
-                android:id="@+id/btn_minus"
+                android:id="@+id/button_division"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="0dp"

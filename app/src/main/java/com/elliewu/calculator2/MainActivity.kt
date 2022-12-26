@@ -54,16 +54,14 @@ class MainActivity : AppCompatActivity() {
         var btn_dot = findViewById<Button>(R.id.button_dot)
         Pikachutest(btn_dot);
 
-//        var btn_plus = findViewById<CheckBox>(R.id.button_plus)
-//        Caculate(btn_plus);
+        var btn_plus = findViewById<CheckBox>(R.id.button_plus)
         var btn_minus = findViewById<CheckBox>(R.id.button_minus)
+        var btn_multiplied = findViewById<CheckBox>(R.id.button_multiplied)
+        var btn_division = findViewById<CheckBox>(R.id.button_division)
+        Caculate(btn_plus);
         Caculate(btn_minus);
-        var btn_equal = findViewById<Button>(R.id.button_equal)
-        btn_equal.setOnClickListener{
-            var btn_plus = findViewById<CheckBox>(R.id.button_plus)
-            Log.d("MainActivity","${btn_plus.isChecked()}")
-            Toast.makeText(this, btn_plus.isChecked().toString(), Toast.LENGTH_LONG).show()
-        }
+        Caculate(btn_multiplied);
+        Caculate(btn_division);
     }
     fun Pikachutest(aaa:Button){
         aaa.setOnClickListener {
@@ -81,73 +79,70 @@ class MainActivity : AppCompatActivity() {
     }
     fun Caculate(bbb:CheckBox)
     {
+        var btn_plus = findViewById<CheckBox>(R.id.button_plus)
+        var btn_minus = findViewById<CheckBox>(R.id.button_minus)
+        var btn_multiplied = findViewById<CheckBox>(R.id.button_multiplied)
+        var btn_division = findViewById<CheckBox>(R.id.button_division)
         //Toast.makeText(this, bbb.getId().toString(), Toast.LENGTH_LONG).show()
         bbb.setOnClickListener{
-            var bb = bbb.getId().toString();
-            Toast.makeText(this, bb, Toast.LENGTH_LONG).show()
-//            var a = bbb.isSelected.toString();
-//            Toast.makeText(this, a, Toast.LENGTH_LONG).show()
-            var buttontext = bbb.getText().toString();
-            var btn_plus = findViewById<CheckBox>(R.id.button_plus);
-            var btn_minus = findViewById<CheckBox>(R.id.button_minus);
-            var btn_multiplied = findViewById<CheckBox>(R.id.button_multiplied);
-            //var btn_division = findViewById<Button>(R.id.button_division);
-            var btn_percent = findViewById<Button>(R.id.button_percent);
-            if(buttontext == "+")
-            {
-                //var a = bbb.onCheckIsTextEditor().toString();
-                //var a = bbb.isTextSelectable.toString();
-                //var a = bbb.stateListAnimator.toString();
-                //var a = bbb.measuredState.toString();
-                //var a = bbb.isDuplicateParentStateEnabled.toString();
-                //var a = bbb.hasTransientState().toString();
-                var a = bbb.isSelected.toString();
-                btn_minus.setSelected(false);
-                btn_multiplied.setSelected(false);
-                //btn_division.setPressed(false);
-                btn_percent.setSelected(false);
-                Toast.makeText(this, a, Toast.LENGTH_LONG).show()
+            if(bbb == findViewById<CheckBox>(R.id.button_plus)){
+                if(bbb.isChecked){
+                    bbb.setBackgroundResource(R.drawable.btn_plus_ed);
+                    btn_minus.setChecked(false);
+                    btn_minus.setBackgroundResource(R.drawable.btn_minus);
+                    btn_multiplied.setChecked(false);
+                    btn_multiplied.setBackgroundResource(R.drawable.btn_multi);
+                    btn_division.setChecked(false);
+                    btn_division.setBackgroundResource(R.drawable.btn_divison);
+                }
+                else{
+                    bbb.setBackgroundResource(R.drawable.btn_plus);
+                }
             }
-            else if(buttontext == "-")
-            {
-                btn_plus.setPressed(false);
-                btn_multiplied.setPressed(false);
-                //btn_division.setPressed(false);
-                btn_percent.setPressed(false);
-                var a = bbb.drawableState.toString();
-                Toast.makeText(this, a, Toast.LENGTH_LONG).show()
+            else if(bbb == findViewById<CheckBox>(R.id.button_minus)){
+                if(bbb.isChecked){
+                    bbb.setBackgroundResource(R.drawable.btn_minus_ed);
+                    btn_plus.setChecked(false);
+                    btn_plus.setBackgroundResource(R.drawable.btn_plus);
+                    btn_multiplied.setChecked(false);
+                    btn_multiplied.setBackgroundResource(R.drawable.btn_multi);
+                    btn_division.setChecked(false);
+                    btn_division.setBackgroundResource(R.drawable.btn_divison);
+                }
+                else{
+                    bbb.setBackgroundResource(R.drawable.btn_minus);
+                }
             }
-            else if(buttontext == "×")
-            {
-                btn_minus.setPressed(false);
-                btn_plus.setPressed(false);
-                //btn_division.setPressed(false);
-                btn_percent.setPressed(false);
-                var a = bbb.drawableState.toString();
-                Toast.makeText(this, a, Toast.LENGTH_LONG).show()
+            else if(bbb == findViewById<CheckBox>(R.id.button_multiplied)){
+                if(bbb.isChecked){
+                    bbb.setBackgroundResource(R.drawable.btn_multi_ed);
+                    btn_plus.setChecked(false);
+                    btn_plus.setBackgroundResource(R.drawable.btn_plus);
+                    btn_minus.setChecked(false);
+                    btn_minus.setBackgroundResource(R.drawable.btn_minus);
+                    btn_division.setChecked(false);
+                    btn_division.setBackgroundResource(R.drawable.btn_divison);
+                }
+                else{
+                    bbb.setBackgroundResource(R.drawable.btn_multi);
+                }
             }
-            else if(buttontext == "÷")
-            {
-                btn_minus.setPressed(false);
-                btn_multiplied.setPressed(false);
-                btn_plus.setPressed(false);
-                btn_percent.setPressed(false);
-                var a = bbb.drawableState.toString();
-                Toast.makeText(this, a, Toast.LENGTH_LONG).show()
-            }
-            else if(buttontext == "%")
-            {
-                btn_minus.setPressed(false);
-                btn_multiplied.setPressed(false);
-                //btn_division.setPressed(false);
-                btn_plus.setPressed(false);
-                var a = bbb.drawableState.toString();
-                Toast.makeText(this, a, Toast.LENGTH_LONG).show()
-            }
-            else if(buttontext == "←")
-            {
+            else if(bbb == findViewById<CheckBox>(R.id.button_division)){
+                if(bbb.isChecked){
+                    bbb.setBackgroundResource(R.drawable.btn_divison_ed);
+                    btn_plus.setChecked(false);
+                    btn_plus.setBackgroundResource(R.drawable.btn_plus);
+                    btn_minus.setChecked(false);
+                    btn_minus.setBackgroundResource(R.drawable.btn_minus);
+                    btn_multiplied.setChecked(false);
+                    btn_multiplied.setBackgroundResource(R.drawable.btn_multi);
+                }
+                else{
+                    bbb.setBackgroundResource(R.drawable.btn_divison);
+                }
             }
         }
+
     }
     fun findButtonClick (Button:String){
         var text = findViewById<TextView>(R.id.tvInput);
