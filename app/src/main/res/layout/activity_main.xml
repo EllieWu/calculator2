@@ -28,12 +28,12 @@
             android:id="@+id/showOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFF"
-            android:textAlignment="textEnd"
-            android:textSize="80sp"
-            android:maxLines="1"
             android:ellipsize="end"
-            android:maxEms="7"/>
+            android:maxEms="7"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textColor="#FFF"
+            android:textSize="80sp" />
 
         <TextView
             android:id="@+id/tvInput"
@@ -296,7 +296,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/circle2"
                 android:textColor="@drawable/textcolor"
-                android:checkable="true"
+                android:checkable="false"
                 android:text="@string/button_equal"
                 android:textSize="40sp"
                 app:backgroundTint="@null" />

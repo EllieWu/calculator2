@@ -11,7 +11,13 @@ import android.util.Log
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
-
+//現在被暗下的計算紐
+// 1 代表+ 2代表- 3代表* 4代表/
+var NCCButton = 0;
+var firstinput = 0.0;
+var secondinput = 0.0;
+var sum = 0.0;
+var equalornot = false;
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +30,26 @@ class MainActivity : AppCompatActivity() {
         var operator:Char = ' '
         var textList:MutableList<String> = mutableListOf("", "", "", "", "")
         var cresult = 0.0;
+        firstinput = 0.0;
+        secondinput = 0.0;
         var text = findViewById<TextView>(R.id.tvInput);
         text.setText("0");
         var button_AC = findViewById<Button>(R.id.button_AC);
         button_AC.setOnClickListener {
             text.setText("0");
+            firstinput = 0.0;
+            secondinput = 0.0;
+            equalornot = false;
+            var text2 = findViewById<TextView>(R.id.showOut)
+            text2.setText("");
+        }
+        var button_arr = findViewById<Button>(R.id.button_arrow)
+        button_arr.setOnClickListener {
+            var aaa = text.getText();
+            if(aaa.length >0){
+                aaa = aaa.dropLast(1);
+            }
+            text.setText(aaa);
         }
         var btn_0 = findViewById<Button>(R.id.button_0)
         Pikachutest(btn_0);
@@ -62,19 +83,46 @@ class MainActivity : AppCompatActivity() {
         Caculate(btn_minus);
         Caculate(btn_multiplied);
         Caculate(btn_division);
+        var btn_equal = findViewById<Button>(R.id.button_equal)
+        btn_equal.setOnClickListener {
+            if(equalornot == false){
+                var text2 = findViewById<TextView>(R.id.showOut)
+                text2.setText(text.getText().toString());
+                secondinput = text2.getText().toString().toDouble();
+            }
+            else{
+                firstinput = text.getText().toString().toDouble();
+            }
+            CaculateResult();
+        }
     }
     fun Pikachutest(aaa:Button){
         aaa.setOnClickListener {
-            var text = findViewById<TextView>(R.id.tvInput);
-            var buttontext = aaa.getText().toString();
-            var a = text.getText().toString();
-            if(a == "0"){
-                text.setText(buttontext);
+            if(NCCButton == 0){
+                var text = findViewById<TextView>(R.id.tvInput);
+                var buttontext = aaa.getText().toString();
+                var a = text.getText().toString();
+                if(a == "0"){
+                    text.setText(buttontext);
+                }
+                else{
+                    a += buttontext;
+                    text.setText(a);
+                }
             }
             else{
-                a += buttontext;
-                text.setText(a);
+                var text = findViewById<TextView>(R.id.tvInput);
+                var buttontext = aaa.getText().toString();
+                var a = text.getText().toString();
+                if(a == "0"){
+                    text.setText(buttontext);
+                }
+                else{
+                    a += buttontext;
+                    text.setText(a);
+                }
             }
+
         }
     }
     fun Caculate(bbb:CheckBox)
@@ -83,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         var btn_minus = findViewById<CheckBox>(R.id.button_minus)
         var btn_multiplied = findViewById<CheckBox>(R.id.button_multiplied)
         var btn_division = findViewById<CheckBox>(R.id.button_division)
+        var text = findViewById<TextView>(R.id.tvInput);
         //Toast.makeText(this, bbb.getId().toString(), Toast.LENGTH_LONG).show()
         bbb.setOnClickListener{
             if(bbb == findViewById<CheckBox>(R.id.button_plus)){
@@ -94,9 +143,14 @@ class MainActivity : AppCompatActivity() {
                     btn_multiplied.setBackgroundResource(R.drawable.btn_multi);
                     btn_division.setChecked(false);
                     btn_division.setBackgroundResource(R.drawable.btn_divison);
+                    NCCButton = 1;
+                    //Toast.makeText(this, text.toString(), Toast.LENGTH_LONG).show()
+                    firstinput = text.getText().toString().toDouble();
                 }
                 else{
                     bbb.setBackgroundResource(R.drawable.btn_plus);
+                    NCCButton = 0;
+                    firstinput = 0.0;
                 }
             }
             else if(bbb == findViewById<CheckBox>(R.id.button_minus)){
@@ -108,9 +162,13 @@ class MainActivity : AppCompatActivity() {
                     btn_multiplied.setBackgroundResource(R.drawable.btn_multi);
                     btn_division.setChecked(false);
                     btn_division.setBackgroundResource(R.drawable.btn_divison);
+                    NCCButton = 2;
+                    firstinput = text.getText().toString().toDouble();
                 }
                 else{
                     bbb.setBackgroundResource(R.drawable.btn_minus);
+                    NCCButton = 0;
+                    firstinput = 0.0;
                 }
             }
             else if(bbb == findViewById<CheckBox>(R.id.button_multiplied)){
@@ -122,9 +180,13 @@ class MainActivity : AppCompatActivity() {
                     btn_minus.setBackgroundResource(R.drawable.btn_minus);
                     btn_division.setChecked(false);
                     btn_division.setBackgroundResource(R.drawable.btn_divison);
+                    NCCButton = 3;
+                    firstinput = text.getText().toString().toDouble();
                 }
                 else{
                     bbb.setBackgroundResource(R.drawable.btn_multi);
+                    NCCButton = 0;
+                    firstinput = 0.0;
                 }
             }
             else if(bbb == findViewById<CheckBox>(R.id.button_division)){
@@ -136,12 +198,45 @@ class MainActivity : AppCompatActivity() {
                     btn_minus.setBackgroundResource(R.drawable.btn_minus);
                     btn_multiplied.setChecked(false);
                     btn_multiplied.setBackgroundResource(R.drawable.btn_multi);
+                    NCCButton = 4;
+                    firstinput = text.getText().toString().toDouble();
                 }
                 else{
                     bbb.setBackgroundResource(R.drawable.btn_divison);
+                    NCCButton = 0;
+                    firstinput = 0.0;
                 }
             }
         }
+
+    }
+    fun CaculateResult()
+    {
+        var btn_plus = findViewById<CheckBox>(R.id.button_plus)
+        var btn_minus = findViewById<CheckBox>(R.id.button_minus)
+        var btn_multiplied = findViewById<CheckBox>(R.id.button_multiplied)
+        var btn_division = findViewById<CheckBox>(R.id.button_division)
+        var text = findViewById<TextView>(R.id.tvInput);
+        when (NCCButton){
+            1-> { sum = firstinput + secondinput;
+
+                text.setText(sum.toString());
+            }
+            2-> { sum = firstinput - secondinput;
+                text.setText(sum.toString());
+            }
+            3-> { sum = firstinput * secondinput;
+                text.setText(sum.toString());
+            }
+            4-> { sum = firstinput / secondinput;
+                text.setText(sum.toString());
+            }
+            else ->{
+                text.setText("0");
+            }
+        }
+        equalornot = true;
+        //Toast.makeText(this, sum.toString(), Toast.LENGTH_SHORT).show()
 
     }
     fun findButtonClick (Button:String){
